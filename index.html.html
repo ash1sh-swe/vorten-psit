@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vorten – PSIT Kanpur Student Commute & Startup Validation Survey</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            obsidian: '#020617',
+            midnight: '#061026',
+            sapphire: '#0284c7',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Custom Exact Black Background with Frosted Glassmorphism Styling */
+    html, body {
+      font-family: 'Inter', sans-serif;
+      background: #000000 !important;
+      background-color: #000000 !important;
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Primary Dark Frosted Glass Card */
+    .glass-card {
+      background: linear-gradient(145deg, rgba(22, 24, 30, 0.72) 0%, rgba(12, 13, 17, 0.82) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.95),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+
+    /* Secondary Subtle Dark Glass Panel */
+    .glass-subcard {
+      background: rgba(18, 20, 26, 0.68);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
+
+    /* Interactive Radio / Option Card */
+    .option-card {
+      background: rgba(18, 20, 26, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .option-card:hover {
+      background: rgba(28, 32, 42, 0.88);
+      border-color: rgba(56, 189, 248, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .option-card.selected {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.22) 0%, rgba(30, 41, 59, 0.65) 100%);
+      border-color: #38bdf8;
+      box-shadow: 0 0 24px rgba(14, 165, 233, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+
+    /* Glass Inputs */
+    .glass-input {
+      background: rgba(10, 11, 15, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #f8fafc;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .glass-input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+    }
+
+    .glass-input option {
+      background-color: #050507;
+      color: #f8fafc;
+    }
+
+    /* Smooth Step Entrance Animation */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-step {
+      animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(56, 189, 248, 0.55);
+    }
+  </style>
+</head>
+<body class="bg-black antialiased selection:bg-sky-500/30 selection:text-sky-200">
+
+  <!-- Toast Notification Banner -->
+  <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-black/90 backdrop-blur-2xl">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <!-- Brand Identity with Custom Company Logo -->
+      <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-black border border-white/20 flex items-center justify-center shadow-lg shadow-black/80 shrink-0 p-0.5">
+            <!-- Custom Company Logo (White Circle with Rounded Inverted Black Triangle) -->
+            <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Vorten Logo">
+              <circle cx="50" cy="50" r="47" fill="#FFFFFF" />
+              <polygon
+                points="23,35 77,35 50,75"
+                fill="#000000"
+                stroke="#000000"
+                stroke-width="7"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sm sm:text-base tracking-tight text-white">Vorten</span>
+              <span class="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-sky-300 border border-white/15">Kanpur</span>
+            </div>
+            <p class="text-[11px] font-medium text-sky-300/90 tracking-wide">Idea Validation Stage</p>
+          </div>
+        </div>
+
+        <!-- Cloud Backend Status Pill -->
+        <div id="cloud-status-pill" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-white/[0.04] border-white/15 text-slate-300">
+          <span id="cloud-status-dot" class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+          <span id="cloud-status-text">Local Preview</span>
+        </div>
+      </div>
+
+      <!-- Mode Switcher Tabs (Only Live Survey & Insights) -->
+      <nav class="flex items-center gap-1.5 p-1 rounded-xl bg-white/[0.04] border border-white/10 w-full sm:w-auto justify-center">
+        <button
+          id="tab-survey"
+          onclick="switchView('survey')"
+          class="flex-1 sm:flex-initial px-4 py-1.5 rounded-lg text-xs font-semibold transition-all bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md shadow-sky-500/20 flex items-center justify-center gap-1.5"
+        >
+          Live Survey
+        </button>
+        <button
+          id="tab-analytics"
+          onclick="switchView('analytics')"
+          class="flex-1 sm:flex-initial px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center justify-center gap-1.5"
+        >
+          <span>Insights</span>
+          <span id="response-badge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-sky-500/25 text-sky-300 font-bold">14</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+
+    <!-- =================================================================== -->
+    <!-- VIEW 1: INTERACTIVE GLASSMORPHIC WEB SURVEY FORM                    -->
+    <!-- =================================================================== -->
+    <section id="view-survey" class="max-w-2xl mx-auto">
+      <!-- Survey Header Card -->
+      <div class="glass-card rounded-2xl p-5 sm:p-7 mb-5 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-white/40 via-sky-400 to-white/20"></div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
+          <div class="inline-flex items-center gap-2 text-xs font-semibold text-white bg-white/[0.07] border border-white/15 px-3 py-1 rounded-full">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="50" cy="50" r="47" fill="#FFFFFF" />
+              <polygon
+                points="23,35 77,35 50,75"
+                fill="#000000"
+                stroke="#000000"
+                stroke-width="7"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Idea Validation Stage</span>
+            <span class="text-white/30">•</span>
+            <span class="text-sky-300">PSIT Kanpur</span>
+          </div>
+          <span class="text-xs text-slate-400">Takes ~45 seconds</span>
+        </div>
+        <h1 class="text-xl sm:text-2xl font-bold text-white tracking-tight mb-2">
+          Daily Commute &amp; Campus Travel Survey
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          We are currently in the <strong class="text-white font-semibold">Idea Validation Stage</strong> for a student-focused mobility solution at <strong class="text-sky-300 font-semibold">PSIT Kanpur</strong>. Answer a few quick questions about your accommodation and daily travel to help us solve real commuting challenges.
+        </p>
+
+        <!-- Dynamic Progress Indicator -->
+        <div id="progress-wrapper" class="mt-5 pt-4 border-t border-white/10">
+          <div class="flex items-center justify-between text-xs mb-1.5">
+            <span id="step-label" class="font-medium text-sky-300">Section 1 of 4 • Accommodation Status</span>
+            <span id="step-percent" class="text-slate-400 font-semibold">25%</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-black/90 overflow-hidden border border-white/10">
+            <div id="progress-bar" class="h-full rounded-full bg-gradient-to-r from-sky-400 to-blue-500 transition-all duration-500 ease-out" style="width: 25%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Step Container -->
+      <div id="survey-stage" class="glass-card rounded-2xl p-5 sm:p-8 transition-all">
+        <!-- Steps are rendered dynamically via JavaScript -->
+      </div>
+
+      <!-- Footer Privacy & Share Bar -->
+      <div class="mt-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 px-1">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <span>Minimal data collection • Optional personal details</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copySurveyLink()" class="inline-flex items-center gap-1.5 text-sky-300 hover:text-sky-200 font-medium transition-colors py-1 px-2.5 rounded-lg hover:bg-sky-500/10">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <span>Copy Link</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 2: LIVE STARTUP VALIDATION ANALYTICS DASHBOARD                 -->
+    <!-- =================================================================== -->
+    <section id="view-analytics" class="hidden space-y-6 animate-step">
+      <div class="glass-card rounded-2xl p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="inline-block text-xs font-semibold uppercase tracking-wider text-sky-300 bg-sky-500/15 border border-sky-400/25 px-3 py-1 rounded-full">
+                Real-Time Validation Metrics
+              </span>
+              <span id="analytics-source-badge" class="inline-block text-xs font-semibold text-amber-300 bg-amber-500/15 border border-amber-400/25 px-3 py-1 rounded-full">
+                Sample + Local Data
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Vorten PSIT Commute Insights</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">
+              Live breakdown of student accommodation, travel modes, and startup demand across collected responses.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+            <button onclick="syncCloudResponses(true)" class="px-3.5 py-2 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/35 text-xs font-semibold text-sky-200 transition-colors">
+              Sync Cloud Sheet
+            </button>
+            <button onclick="exportResponsesCsv()" class="px-3.5 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-xs font-semibold text-white transition-colors">
+              Export CSV
+            </button>
+            <button onclick="resetAnalyticsDemo()" class="px-3.5 py-2 rounded-xl bg-black/80 hover:bg-white/[0.06] border border-white/10 text-xs font-medium text-slate-400 hover:text-white transition-colors">
+              Reset Demo
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Summary Cards -->
+        <div id="analytics-kpis" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Visual Breakdown Bars -->
+        <div id="analytics-charts" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // CONNECTED GOOGLE APPS SCRIPT WEB APP URL (/exec)
+    // =========================================================================
+    const EMBEDDED_GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrtPwVB1pou6vs5mEYMPceWZP_FDIa48DTI2bGi5ReSmRxjIUMIetZWf-CP9_mdzxBaQ/exec";
+
+    const REQUIRED_FINAL_MESSAGE =
+      "Thank you for taking the time to participate in our survey. Your response is valuable and will help us understand student commuting needs better.";
+
+    const BRANCH_OPTIONS = [
+      "CSE",
+      "CSE (AI & ML)",
+      "CSE (Data Science)",
+      "IT",
+      "ECE",
+      "Electrical Engineering",
+      "Mechanical Engineering",
+      "Civil Engineering",
+      "Other"
+    ];
+
+    const PAIN_POINTS = [
+      "High daily auto fare / fuel costs",
+      "Long waiting time for shared autos",
+      "Traffic congestion (Bhauti / Kalpi Rd / NH-19)",
+      "Weather discomfort (heat, rain, winter fog)",
+      "Overcrowding & safety concerns",
+      "No major issues"
+    ];
+
+    // Initial realistic PSIT Kanpur responses for preview before live cloud sync
+    const DEFAULT_RESPONSES = [
+      { accommodation: "Day Scholar", transport: "Auto (Public/Shared Auto)", daily: "Yes", distance: "10 – 20 km", expense: "₹80 – ₹150", problems: ["Long waiting time for shared autos", "High daily auto fare / fuel costs"], interest: "Definitely Yes", branch: "CSE (AI & ML)" },
+      { accommodation: "Day Scholar", transport: "Bike / Scooty", daily: "Yes", distance: "10 – 20 km", expense: "₹80 – ₹150", problems: ["Traffic congestion (Bhauti / Kalpi Rd / NH-19)", "Weather discomfort (heat, rain, winter fog)"], interest: "Maybe, depending on price", branch: "CSE" },
+      { accommodation: "Hosteller", transport: null, daily: null, distance: null, expense: null, problems: [], interest: null, branch: "IT" },
+      { accommodation: "Day Scholar", transport: "Auto (Public/Shared Auto)", daily: "Yes", distance: "More than 20 km", expense: "Above ₹150", problems: ["High daily auto fare / fuel costs", "Overcrowding & safety concerns"], interest: "Definitely Yes", branch: "ECE" },
+      { accommodation: "Day Scholar", transport: "Walking", daily: null, distance: null, expense: null, problems: [], interest: null, branch: "CSE" },
+      { accommodation: "Day Scholar", transport: "Auto (Public/Shared Auto)", daily: "Yes", distance: "5 – 10 km", expense: "₹40 – ₹80", problems: ["Long waiting time for shared autos"], interest: "Definitely Yes", branch: "CSE (Data Science)" },
+      { accommodation: "Hosteller", transport: null, daily: null, distance: null, expense: null, problems: [], interest: null, branch: "Mechanical Engineering" },
+      { accommodation: "Day Scholar", transport: "Bike / Scooty", daily: "Yes", distance: "5 – 10 km", expense: "₹40 – ₹80", problems: ["Weather discomfort (heat, rain, winter fog)"], interest: "Maybe, depending on price", branch: "IT" },
+      { accommodation: "Day Scholar", transport: "Auto (Public/Shared Auto)", daily: "Yes", distance: "10 – 20 km", expense: "₹80 – ₹150", problems: ["High daily auto fare / fuel costs", "Long waiting time for shared autos"], interest: "Definitely Yes", branch: "CSE" },
+      { accommodation: "Day Scholar", transport: "Walking", daily: null, distance: null, expense: null, problems: [], interest: null, branch: "Civil Engineering" },
+      { accommodation: "Day Scholar", transport: "Bike / Scooty", daily: "No", distance: "More than 20 km", expense: "Above ₹150", problems: ["High daily auto fare / fuel costs", "Traffic congestion (Bhauti / Kalpi Rd / NH-19)"], interest: "Definitely Yes", branch: "Electrical Engineering" },
+      { accommodation: "Hosteller", transport: null, daily: null, distance: null, expense: null, problems: [], interest: null, branch: "CSE (AI & ML)" },
+      { accommodation: "Day Scholar", transport: "Auto (Public/Shared Auto)", daily: "Yes", distance: "10 – 20 km", expense: "₹80 – ₹150", problems: ["Overcrowding & safety concerns", "Long waiting time for shared autos"], interest: "Definitely Yes", branch: "CSE" },
+      { accommodation: "Day Scholar", transport: "Bike / Scooty", daily: "Yes", distance: "Under 5 km", expense: "Under ₹40", problems: ["No major issues"], interest: "No, I prefer current mode", branch: "ECE" }
+    ];
+
+    let allResponses = loadSavedResponses();
+    let isCloudSynced = false;
+    let surveyState = createInitialSurveyState();
+
+    function getActiveScriptUrl() {
+      if (EMBEDDED_GOOGLE_SCRIPT_URL && EMBEDDED_GOOGLE_SCRIPT_URL.trim().startsWith("http")) {
+        return EMBEDDED_GOOGLE_SCRIPT_URL.trim();
+      }
+      try {
+        const stored = localStorage.getItem("vorten_google_script_url");
+        if (stored && stored.trim().startsWith("http")) return stored.trim();
+      } catch (e) {}
+      return "";
+    }
+
+    function updateCloudStatusBadge() {
+      const url = getActiveScriptUrl();
+      const dot = document.getElementById("cloud-status-dot");
+      const text = document.getElementById("cloud-status-text");
+      const analyticsBadge = document.getElementById("analytics-source-badge");
+      if (!dot || !text) return;
+
+      if (url && url.endsWith("/exec")) {
+        dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse";
+        text.textContent = "Cloud DB Live";
+        if (analyticsBadge) {
+          analyticsBadge.textContent = isCloudSynced ? "Live Google Sheet Synced" : "Cloud Connected";
+          analyticsBadge.className = "inline-block text-xs font-semibold text-emerald-300 bg-emerald-500/15 border border-emerald-400/25 px-3 py-1 rounded-full";
+        }
+      } else {
+        dot.className = "w-1.5 h-1.5 rounded-full bg-amber-400";
+        text.textContent = "Local Preview";
+        if (analyticsBadge) {
+          analyticsBadge.textContent = "Sample + Local Data";
+          analyticsBadge.className = "inline-block text-xs font-semibold text-amber-300 bg-amber-500/15 border border-amber-400/25 px-3 py-1 rounded-full";
+        }
+      }
+    }
+
+    function createInitialSurveyState() {
+      return {
+        submissionId: "VRT-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase(),
+        step: "step1",
+        accommodation: "",
+        transport: "",
+        daily: "",
+        homeAddress: "",
+        distance: "",
+        expense: "",
+        problems: [],
+        interest: "",
+        fullName: "",
+        branch: "",
+        email: "",
+        consentEmail: false,
+        consentWhatsApp: false,
+        whatsapp: "",
+        greetingDispatched: false,
+        cloudSyncedForThisSubmission: false,
+        recordedIndex: null
+      };
+    }
+
+    function loadSavedResponses() {
+      try {
+        const raw = localStorage.getItem("vorten_psit_responses_v2");
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
+      return [...DEFAULT_RESPONSES];
+    }
+
+    function saveResponses() {
+      try {
+        localStorage.setItem("vorten_psit_responses_v2", JSON.stringify(allResponses));
+      } catch (e) {}
+      updateResponseBadge();
+    }
+
+    function updateResponseBadge() {
+      const badge = document.getElementById("response-badge");
+      if (badge) badge.textContent = allResponses.length;
+    }
+
+    // =========================================================================
+    // TOAST NOTIFICATION SYSTEM
+    // =========================================================================
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toast-container");
+      if (!container) return;
+
+      const styles = {
+        success: "border-emerald-400/40 bg-emerald-950/90 text-emerald-100",
+        error: "border-rose-400/40 bg-rose-950/90 text-rose-100",
+        info: "border-sky-400/40 bg-slate-950/90 text-sky-100"
+      };
+
+      const toast = document.createElement("div");
+      toast.className = `pointer-events-auto rounded-xl border px-4 py-3 text-xs font-medium shadow-2xl backdrop-blur-xl transition-all duration-300 ${styles[type] || styles.info}`;
+      toast.textContent = message;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-6px)";
+        setTimeout(() => toast.remove(), 300);
+      }, 3600);
+    }
+
+    // =========================================================================
+    // CLOUD SUBMISSION & OFFLINE RETRY QUEUE (SCALES TO 3,000+ REAL ENTRIES)
+    // =========================================================================
+    async function dispatchSubmissionToCloud(payload) {
+      const scriptUrl = getActiveScriptUrl();
+      if (!scriptUrl) return false;
+
+      try {
+        await fetch(scriptUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+        return true;
+      } catch (err) {
+        queueOfflineSubmission(payload);
+        return false;
+      }
+    }
+
+    function queueOfflineSubmission(payload) {
+      try {
+        const q = JSON.parse(localStorage.getItem("vorten_offline_queue") || "[]");
+        q.push(payload);
+        localStorage.setItem("vorten_offline_queue", JSON.stringify(q));
+      } catch (e) {}
+    }
+
+    async function flushOfflineQueue() {
+      const scriptUrl = getActiveScriptUrl();
+      if (!scriptUrl) return;
+      try {
+        const q = JSON.parse(localStorage.getItem("vorten_offline_queue") || "[]");
+        if (!Array.isArray(q) || q.length === 0) return;
+        const remaining = [];
+        for (const item of q) {
+          try {
+            await fetch(scriptUrl, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify(item)
+            });
+          } catch (e) {
+            remaining.push(item);
+          }
+        }
+        localStorage.setItem("vorten_offline_queue", JSON.stringify(remaining));
+      } catch (e) {}
+    }
+
+    function fetchViaJsonp(scriptUrl) {
+      return new Promise((resolve, reject) => {
+        const cbName = "vorten_cb_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+        const script = document.createElement("script");
+        const timeout = setTimeout(() => {
+          cleanup();
+          reject(new Error("JSONP timeout"));
+        }, 8000);
+
+        function cleanup() {
+          clearTimeout(timeout);
+          delete window[cbName];
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }
+
+        window[cbName] = function (data) {
+          cleanup();
+          resolve(data);
+        };
+
+        script.onerror = function () {
+          cleanup();
+          reject(new Error("JSONP script error"));
+        };
+
+        const sep = scriptUrl.includes("?") ? "&" : "?";
+        script.src = `${scriptUrl}${sep}callback=${cbName}`;
+        document.body.appendChild(script);
+      });
+    }
+
+    async function syncCloudResponses(showFeedback = false) {
+      const scriptUrl = getActiveScriptUrl();
+      if (!scriptUrl) {
+        if (showFeedback) {
+          showToast("Google Sheet URL is not configured in EMBEDDED_GOOGLE_SCRIPT_URL yet.", "info");
+        }
+        return;
+      }
+
+      try {
+        let data = null;
+        try {
+          const res = await fetch(scriptUrl, { method: "GET" });
+          if (res.ok) data = await res.json();
+        } catch (fetchErr) {
+          data = await fetchViaJsonp(scriptUrl);
+        }
+
+        if (data && Array.isArray(data.responses)) {
+          isCloudSynced = true;
+          if (data.responses.length > 0) {
+            allResponses = data.responses;
+            saveResponses();
+          } else {
+            updateResponseBadge();
+          }
+          updateCloudStatusBadge();
+          renderAnalytics();
+          if (showFeedback) {
+            showToast(`Synced ${data.responses.length} live rows from Google Sheet!`, "success");
+          }
+        }
+      } catch (err) {
+        if (showFeedback) {
+          showToast("Could not sync rows. Ensure Apps Script 'Who has access' is set to 'Anyone'.", "error");
+        }
+      }
+    }
+
+    // =========================================================================
+    // VIEW SWITCHER (LIVE SURVEY / ANALYTICS)
+    // =========================================================================
+    function switchView(viewName) {
+      const views = ["survey", "analytics"];
+      views.forEach((v) => {
+        const el = document.getElementById(`view-${v}`);
+        const tab = document.getElementById(`tab-${v}`);
+        if (!el || !tab) return;
+        if (v === viewName) {
+          el.classList.remove("hidden");
+          tab.className =
+            "flex-1 sm:flex-initial px-4 py-1.5 rounded-lg text-xs font-semibold transition-all bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md shadow-sky-500/20 flex items-center justify-center gap-1.5";
+        } else {
+          el.classList.add("hidden");
+          tab.className =
+            "flex-1 sm:flex-initial px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center justify-center gap-1.5";
+        }
+      });
+
+      if (viewName === "analytics") {
+        renderAnalytics();
+      }
+    }
+
+    // =========================================================================
+    // PROGRESS BAR UPDATER
+    // =========================================================================
+    function updateProgress() {
+      const labelEl = document.getElementById("step-label");
+      const percentEl = document.getElementById("step-percent");
+      const barEl = document.getElementById("progress-bar");
+
+      const map = {
+        step1: { label: "Section 1 of 4 • Accommodation Status", pct: 25 },
+        step2: { label: "Section 2 of 4 • Mode of Transportation", pct: 50 },
+        step3: { label: "Section 3 of 4 • Daily Commute Pattern", pct: 75 },
+        step4: { label: "Section 4 of 4 • Student Details (Optional)", pct: 92 },
+        ending_hosteller: { label: "Survey Completed • Hosteller Path", pct: 100 },
+        ending_walking: { label: "Survey Completed • Walking Path", pct: 100 },
+        ending_commuter: { label: "Survey Completed • Commuter Path", pct: 100 }
+      };
+
+      const current = map[surveyState.step] || map.step1;
+      labelEl.textContent = current.label;
+      percentEl.textContent = `${current.pct}%`;
+      barEl.style.width = `${current.pct}%`;
+    }
+
+    // =========================================================================
+    // RENDER SURVEY STEPS & CONDITIONAL BRANCHING
+    // =========================================================================
+    function renderSurvey() {
+      updateProgress();
+      const stage = document.getElementById("survey-stage");
+
+      if (surveyState.step === "step1") {
+        stage.innerHTML = `
+          <div class="animate-step">
+            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-400 mb-2">
+              <span>Question 1</span>
+              <span>•</span>
+              <span>Required</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-white mb-1.5">
+              Where do you currently live?
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 mb-5">
+              Select your current accommodation status at PSIT College, Kanpur.
+            </p>
+
+            <div class="space-y-3">
+              ${renderRadioOption("accommodation", "Day Scholar", "I commute to PSIT College from my home or off-campus residence.", "🏠")}
+              ${renderRadioOption("accommodation", "Hosteller", "I reside inside the PSIT campus hostel.", "🏢")}
+            </div>
+
+            <div class="mt-7 flex items-center justify-end">
+              <button
+                onclick="handleStep1Next()"
+                class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 transition-all flex items-center justify-center gap-2"
+              >
+                <span>Continue</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (surveyState.step === "step2") {
+        stage.innerHTML = `
+          <div class="animate-step">
+            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-400 mb-2">
+              <span>Question 2</span>
+              <span>•</span>
+              <span>Day Scholar Path</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-white mb-1.5">
+              How do you usually travel to PSIT College?
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 mb-5">
+              Choose your primary daily mode of transportation.
+            </p>
+
+            <div class="space-y-3">
+              ${renderRadioOption("transport", "Bike / Scooty", "Personal two-wheeler or pillion ride with a friend.", "🛵")}
+              ${renderRadioOption("transport", "Walking", "I stay within walking distance of the PSIT campus.", "🚶")}
+              ${renderRadioOption("transport", "Auto (Public/Shared Auto)", "Shared Vikram/Auto-rickshaw or e-rickshaw route.", "🛺")}
+            </div>
+
+            <div class="mt-7 flex flex-col-reverse sm:flex-row items-center justify-between gap-3">
+              <button
+                onclick="goToStep('step1')"
+                class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 text-slate-300 font-medium text-sm transition-all"
+              >
+                ← Back
+              </button>
+              <button
+                onclick="handleStep2Next()"
+                class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 transition-all flex items-center justify-center gap-2"
+              >
+                <span>Continue</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (surveyState.step === "step3") {
+        stage.innerHTML = `
+          <div class="animate-step space-y-6">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-400 mb-2">
+                <span>Section 3</span>
+                <span>•</span>
+                <span>${surveyState.transport} Commuters</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-bold text-white mb-1">
+                Daily Commute &amp; Travel Insights
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-400">
+                Help us understand your daily routine, expenses, and commuting pain points.
+              </p>
+            </div>
+
+            <!-- Q3.1: Daily Travel -->
+            <div>
+              <label class="block text-sm font-semibold text-white mb-2.5">
+                1. Do you travel from your home to PSIT College daily? <span class="text-sky-400">*</span>
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                ${renderCompactPill("daily", "Yes")}
+                ${renderCompactPill("daily", "No")}
+              </div>
+            </div>
+
+            <!-- Q3.2: Home Address / Nearby Area -->
+            <div>
+              <label for="input-home-address" class="block text-sm font-semibold text-white mb-1">
+                2. Home Address / Nearby Area or Landmark <span class="text-slate-400 font-normal text-xs">(Optional)</span>
+              </label>
+              <p class="text-xs text-slate-400 mb-2">Type your colony, nearby landmark, or locality in Kanpur</p>
+              <input
+                id="input-home-address"
+                type="text"
+                value="${escapeHtml(surveyState.homeAddress)}"
+                oninput="surveyState.homeAddress = this.value"
+                placeholder="e.g., Kakadeo near Chapera Pulia, Barra-2, Kalyanpur..."
+                class="glass-input w-full rounded-xl px-4 py-3 text-sm"
+              />
+            </div>
+
+            <!-- Q3.3: Distance -->
+            <div>
+              <label class="block text-sm font-semibold text-white mb-2.5">
+                3. Approximate one-way travel distance to PSIT? <span class="text-sky-400">*</span>
+              </label>
+              <div class="grid grid-cols-2 gap-2.5">
+                ${["Under 5 km", "5 – 10 km", "10 – 20 km", "More than 20 km"]
+                  .map((opt) => renderCompactPill("distance", opt))
+                  .join("")}
+              </div>
+            </div>
+
+            <!-- Q3.4: Daily Expense -->
+            <div>
+              <label class="block text-sm font-semibold text-white mb-2.5">
+                4. Average daily round-trip expense (fuel or auto fare)? <span class="text-sky-400">*</span>
+              </label>
+              <div class="grid grid-cols-2 gap-2.5">
+                ${["Under ₹40", "₹40 – ₹80", "₹80 – ₹150", "Above ₹150"]
+                  .map((opt) => renderCompactPill("expense", opt))
+                  .join("")}
+              </div>
+            </div>
+
+            <!-- Q3.5: Problems (Multi-select) -->
+            <div>
+              <label class="block text-sm font-semibold text-white mb-1">
+                5. What transportation problems do you face regularly?
+              </label>
+              <p class="text-xs text-slate-400 mb-2.5">Select all that apply</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                ${PAIN_POINTS.map((prob) => renderCheckboxPill(prob)).join("")}
+              </div>
+            </div>
+
+            <!-- Q3.6: Startup Validation Interest -->
+            <div>
+              <label class="block text-sm font-semibold text-white mb-2.5">
+                6. Would you try a verified, affordable PSIT student ride-sharing / shuttle service? <span class="text-sky-400">*</span>
+              </label>
+              <div class="space-y-2">
+                ${[
+                  "Definitely Yes",
+                  "Maybe, depending on price",
+                  "No, I prefer current mode"
+                ]
+                  .map((opt) => renderCompactPill("interest", opt))
+                  .join("")}
+              </div>
+            </div>
+
+            <div class="pt-3 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 border-t border-white/10">
+              <button
+                onclick="goToStep('step2')"
+                class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 text-slate-300 font-medium text-sm transition-all"
+              >
+                ← Back
+              </button>
+              <button
+                onclick="handleStep3Next()"
+                class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 transition-all flex items-center justify-center gap-2"
+              >
+                <span>Next: Student Details</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (surveyState.step === "step4") {
+        stage.innerHTML = `
+          <div class="animate-step space-y-5">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-400 mb-2">
+                <span>Final Page</span>
+                <span>•</span>
+                <span>Optional Details</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-bold text-white mb-1">
+                Student Details
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-400">
+                All fields below are optional. Share your details only if you would like to receive a personalized thank-you greeting or early access updates.
+              </p>
+            </div>
+
+            <!-- Full Name -->
+            <div>
+              <label for="input-fullname" class="block text-xs sm:text-sm font-medium text-slate-200 mb-1.5">
+                Full Name <span class="text-slate-500 font-normal">(Optional)</span>
+              </label>
+              <input
+                id="input-fullname"
+                type="text"
+                value="${escapeHtml(surveyState.fullName)}"
+                oninput="surveyState.fullName = this.value"
+                placeholder="e.g., Aarav Sharma"
+                class="glass-input w-full rounded-xl px-4 py-3 text-sm"
+              />
+            </div>
+
+            <!-- Branch Dropdown -->
+            <div>
+              <label for="input-branch" class="block text-xs sm:text-sm font-medium text-slate-200 mb-1.5">
+                Branch <span class="text-slate-500 font-normal">(Optional)</span>
+              </label>
+              <select
+                id="input-branch"
+                onchange="surveyState.branch = this.value"
+                class="glass-input w-full rounded-xl px-4 py-3 text-sm"
+              >
+                <option value="">Select your branch...</option>
+                ${BRANCH_OPTIONS.map(
+                  (b) => `<option value="${b}" ${surveyState.branch === b ? "selected" : ""}>${b}</option>`
+                ).join("")}
+              </select>
+            </div>
+
+            <!-- Email ID with Validation -->
+            <div>
+              <label for="input-email" class="block text-xs sm:text-sm font-medium text-slate-200 mb-1.5">
+                Email ID <span class="text-slate-500 font-normal">(Optional • Validated)</span>
+              </label>
+              <input
+                id="input-email"
+                type="email"
+                value="${escapeHtml(surveyState.email)}"
+                oninput="surveyState.email = this.value; validateEmailLive(this.value)"
+                placeholder="e.g., student@psit.ac.in or name@gmail.com"
+                class="glass-input w-full rounded-xl px-4 py-3 text-sm"
+              />
+              <p id="email-validation-msg" class="text-xs mt-1.5 hidden"></p>
+            </div>
+
+            <!-- Consent-Based Automated Greeting Box -->
+            <div class="glass-subcard rounded-xl p-4 space-y-3 border border-sky-400/20">
+              <div class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-sky-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <div>
+                  <h3 class="text-xs sm:text-sm font-semibold text-white">Automated Thank-You Greeting (Consent)</h3>
+                  <p class="text-[11px] text-slate-400">Choose if you consent to receiving an automated personalized thank-you message:</p>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-3 pt-1">
+                <label class="inline-flex items-center gap-2 text-xs text-slate-200 cursor-pointer bg-black/70 px-3 py-2 rounded-lg border border-white/15 hover:border-sky-400/40">
+                  <input
+                    type="checkbox"
+                    ${surveyState.consentEmail ? "checked" : ""}
+                    onchange="surveyState.consentEmail = this.checked"
+                    class="rounded accent-sky-500 w-4 h-4"
+                  />
+                  <span>Send via Email</span>
+                </label>
+
+                <label class="inline-flex items-center gap-2 text-xs text-slate-200 cursor-pointer bg-black/70 px-3 py-2 rounded-lg border border-white/15 hover:border-sky-400/40">
+                  <input
+                    type="checkbox"
+                    ${surveyState.consentWhatsApp ? "checked" : ""}
+                    onchange="toggleWhatsAppConsent(this.checked)"
+                    class="rounded accent-sky-500 w-4 h-4"
+                  />
+                  <span>Send via WhatsApp</span>
+                </label>
+              </div>
+
+              <div id="whatsapp-input-wrap" class="${surveyState.consentWhatsApp ? "" : "hidden"} pt-1">
+                <label for="input-whatsapp" class="block text-xs text-slate-300 mb-1">WhatsApp Number (+91)</label>
+                <input
+                  id="input-whatsapp"
+                  type="tel"
+                  maxlength="10"
+                  value="${escapeHtml(surveyState.whatsapp)}"
+                  oninput="surveyState.whatsapp = this.value.replace(/[^0-9]/g, '')"
+                  placeholder="Enter 10-digit WhatsApp number"
+                  class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm"
+                />
+              </div>
+            </div>
+
+            <div class="pt-3 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 border-t border-white/10">
+              <button
+                onclick="goToStep('step3')"
+                class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 text-slate-300 font-medium text-sm transition-all"
+              >
+                ← Back
+              </button>
+              <button
+                onclick="handleFinalSubmit()"
+                class="w-full sm:w-auto px-7 py-3 rounded-xl bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/30 transition-all flex items-center justify-center gap-2"
+              >
+                <span>Submit Survey</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (
+        surveyState.step === "ending_hosteller" ||
+        surveyState.step === "ending_walking" ||
+        surveyState.step === "ending_commuter"
+      ) {
+        renderEndingScreen(stage);
+      }
+    }
+
+    // =========================================================================
+    // UI COMPONENT HELPERS FOR SURVEY OPTIONS
+    // =========================================================================
+    function renderRadioOption(field, value, subtitle, emoji) {
+      const isSelected = surveyState[field] === value;
+      return `
+        <div
+          onclick="selectOption('${field}', '${value}')"
+          role="radio"
+          aria-checked="${isSelected}"
+          tabindex="0"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectOption('${field}','${value}');}"
+          class="option-card ${isSelected ? "selected" : ""} rounded-xl p-4 cursor-pointer flex items-center gap-4 select-none"
+        >
+          <div class="w-11 h-11 rounded-xl bg-black/80 border border-white/15 flex items-center justify-center text-xl shrink-0">
+            ${emoji}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-sm sm:text-base text-white">${value}</div>
+            <div class="text-xs text-slate-400 mt-0.5">${subtitle}</div>
+          </div>
+          <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+            isSelected ? "border-sky-400 bg-sky-500/20" : "border-slate-600"
+          }">
+            ${isSelected ? '<div class="w-2.5 h-2.5 rounded-full bg-sky-400"></div>' : ""}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCompactPill(field, value) {
+      const isSelected = surveyState[field] === value;
+      return `
+        <button
+          type="button"
+          onclick="selectOption('${field}', '${value}')"
+          class="option-card ${isSelected ? "selected" : ""} w-full text-left px-4 py-3 rounded-xl text-xs sm:text-sm font-medium flex items-center justify-between gap-2"
+        >
+          <span class="${isSelected ? "text-white font-semibold" : "text-slate-200"}">${value}</span>
+          <span class="w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
+            isSelected ? "border-sky-400 bg-sky-500/20" : "border-slate-600"
+          }">
+            ${isSelected ? '<span class="w-2 h-2 rounded-full bg-sky-400"></span>' : ""}
+          </span>
+        </button>
+      `;
+    }
+
+    function renderCheckboxPill(problemText) {
+      const isChecked = surveyState.problems.includes(problemText);
+      const safeArg = problemText.replace(/'/g, "\\'");
+      return `
+        <button
+          type="button"
+          onclick="toggleProblem('${safeArg}')"
+          class="option-card ${isChecked ? "selected" : ""} w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-medium flex items-center gap-2.5"
+        >
+          <span class="w-4 h-4 rounded flex items-center justify-center shrink-0 border ${
+            isChecked ? "bg-sky-500 border-sky-400 text-white" : "border-slate-600 bg-black/70"
+          }">
+            ${
+              isChecked
+                ? '<svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>'
+                : ""
+            }
+          </span>
+          <span class="${isChecked ? "text-white" : "text-slate-300"} leading-snug">${problemText}</span>
+        </button>
+      `;
+    }
+
+    // =========================================================================
+    // CONDITIONAL LOGIC & NAVIGATION HANDLERS
+    // =========================================================================
+    function selectOption(field, value) {
+      surveyState[field] = value;
+      renderSurvey();
+    }
+
+    function toggleProblem(problemText) {
+      if (problemText === "No major issues") {
+        surveyState.problems = surveyState.problems.includes("No major issues") ? [] : ["No major issues"];
+      } else {
+        surveyState.problems = surveyState.problems.filter((p) => p !== "No major issues");
+        if (surveyState.problems.includes(problemText)) {
+          surveyState.problems = surveyState.problems.filter((p) => p !== problemText);
+        } else {
+          surveyState.problems.push(problemText);
+        }
+      }
+      renderSurvey();
+    }
+
+    function goToStep(stepName) {
+      surveyState.step = stepName;
+      renderSurvey();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function handleStep1Next() {
+      if (!surveyState.accommodation) {
+        showToast("Please select whether you are a Day Scholar or Hosteller.", "error");
+        return;
+      }
+
+      if (surveyState.accommodation === "Hosteller") {
+        recordCurrentResponse(true);
+        goToStep("ending_hosteller");
+      } else {
+        goToStep("step2");
+      }
+    }
+
+    function handleStep2Next() {
+      if (!surveyState.transport) {
+        showToast("Please select how you usually travel to PSIT College.", "error");
+        return;
+      }
+
+      if (surveyState.transport === "Walking") {
+        recordCurrentResponse(true);
+        goToStep("ending_walking");
+      } else {
+        goToStep("step3");
+      }
+    }
+
+    function handleStep3Next() {
+      if (!surveyState.daily || !surveyState.distance || !surveyState.expense || !surveyState.interest) {
+        showToast("Please answer all required commute questions (*) before continuing.", "error");
+        return;
+      }
+      goToStep("step4");
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+    }
+
+    function validateEmailLive(val) {
+      const msgEl = document.getElementById("email-validation-msg");
+      if (!msgEl) return;
+      if (!val.trim()) {
+        msgEl.classList.add("hidden");
+        return;
+      }
+      msgEl.classList.remove("hidden");
+      if (isValidEmail(val)) {
+        msgEl.textContent = "✓ Valid email address";
+        msgEl.className = "text-xs mt-1.5 text-emerald-400";
+      } else {
+        msgEl.textContent = "Please enter a valid email address (e.g., name@example.com)";
+        msgEl.className = "text-xs mt-1.5 text-rose-400";
+      }
+    }
+
+    function toggleWhatsAppConsent(checked) {
+      surveyState.consentWhatsApp = checked;
+      const wrap = document.getElementById("whatsapp-input-wrap");
+      if (wrap) {
+        wrap.classList.toggle("hidden", !checked);
+      }
+    }
+
+    function handleFinalSubmit() {
+      const emailTrimmed = surveyState.email.trim();
+      if (emailTrimmed && !isValidEmail(emailTrimmed)) {
+        showToast("Please enter a valid Email ID or leave it blank.", "error");
+        return;
+      }
+      if (surveyState.consentEmail && !emailTrimmed) {
+        showToast("Please enter your Email ID to receive an email greeting, or uncheck Email consent.", "error");
+        return;
+      }
+      if (surveyState.consentWhatsApp && surveyState.whatsapp.length !== 10) {
+        showToast("Please enter a valid 10-digit WhatsApp number or uncheck WhatsApp consent.", "error");
+        return;
+      }
+
+      if (surveyState.consentEmail || surveyState.consentWhatsApp) {
+        surveyState.greetingDispatched = true;
+      }
+
+      recordCurrentResponse(true);
+      goToStep("ending_commuter");
+      showToast("Response recorded! Thank you for helping PSIT Kanpur students.", "success");
+    }
+
+    function recordCurrentResponse(sendToCloud = false) {
+      const entry = {
+        submissionId: surveyState.submissionId,
+        accommodation: surveyState.accommodation,
+        transport: surveyState.transport || null,
+        daily: surveyState.daily || null,
+        homeAddress: surveyState.homeAddress.trim(),
+        distance: surveyState.distance || null,
+        expense: surveyState.expense || null,
+        problems: [...surveyState.problems],
+        interest: surveyState.interest || null,
+        fullName: surveyState.fullName.trim(),
+        branch: surveyState.branch || "Unspecified",
+        email: surveyState.email.trim(),
+        consentEmail: surveyState.consentEmail,
+        consentWhatsApp: surveyState.consentWhatsApp,
+        whatsapp: surveyState.whatsapp
+      };
+
+      if (surveyState.recordedIndex === null) {
+        allResponses.push(entry);
+        surveyState.recordedIndex = allResponses.length - 1;
+      } else {
+        allResponses[surveyState.recordedIndex] = entry;
+      }
+      saveResponses();
+
+      if (sendToCloud && !surveyState.cloudSyncedForThisSubmission) {
+        surveyState.cloudSyncedForThisSubmission = true;
+        dispatchSubmissionToCloud(entry);
+      }
+    }
+
+    // =========================================================================
+    // PERSONALIZED ENDING SCREENS & AUTOMATED GREETING DISPATCH PREVIEW
+    // =========================================================================
+    function renderEndingScreen(stage) {
+      let badgeText = "";
+      let headline = "";
+      let personalizedGreeting = "";
+      let iconEmoji = "";
+
+      if (surveyState.step === "ending_hosteller") {
+        badgeText = "Hosteller • Survey Completed";
+        headline = "Thank You for Participating, PSIT Hosteller!";
+        personalizedGreeting =
+          "Since you currently reside in the PSIT College hostel, our daily off-campus commute section isn't needed. We truly appreciate your time and participation in our campus mobility research!";
+        iconEmoji = "🏢";
+      } else if (surveyState.step === "ending_walking") {
+        badgeText = "Walking Commuter • Survey Completed";
+        headline = "Thank You for Participating!";
+        personalizedGreeting =
+          "Walking to PSIT College is healthy, sustainable, and hassle-free! Since you don't rely on motorized daily transit, you've reached the end of our survey. Thank you for participating!";
+        iconEmoji = "🚶";
+      } else {
+        const displayName = surveyState.fullName.trim() ? `, ${escapeHtml(surveyState.fullName.trim())}` : "";
+        badgeText = `${surveyState.transport} Commuter • Survey Completed`;
+        headline = `Thank You${displayName}!`;
+        personalizedGreeting = `Your insights as a daily ${surveyState.transport} commuter (${surveyState.distance}, ${surveyState.expense}/day) give us crucial data to build a reliable, student-friendly transportation solution for PSIT Kanpur.`;
+        iconEmoji = surveyState.transport === "Bike / Scooty" ? "🛵" : "🛺";
+      }
+
+      const isEarlyExit = surveyState.step === "ending_hosteller" || surveyState.step === "ending_walking";
+
+      stage.innerHTML = `
+        <div class="animate-step text-center py-2">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-sky-400/25 to-blue-600/25 border border-sky-400/40 flex items-center justify-center text-3xl shadow-lg shadow-sky-500/20">
+            ${iconEmoji}
+          </div>
+
+          <span class="inline-block text-xs font-semibold uppercase tracking-wider text-emerald-300 bg-emerald-500/15 border border-emerald-400/30 px-3 py-1 rounded-full mb-3">
+            ${badgeText}
+          </span>
+
+          <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">
+            ${headline}
+          </h2>
+
+          <p class="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed mb-5">
+            ${personalizedGreeting}
+          </p>
+
+          <!-- Required Final Thank-You Message Card -->
+          <div class="glass-subcard rounded-2xl p-4 sm:p-5 border border-sky-400/30 max-w-lg mx-auto mb-6 text-left">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center text-sky-300 shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <div class="text-[11px] uppercase tracking-wider font-semibold text-sky-300 mb-1">Official Survey Confirmation</div>
+                <p class="text-xs sm:text-sm text-white font-medium leading-relaxed">
+                  "${REQUIRED_FINAL_MESSAGE}"
+                </p>
+              </div>
+            </div>
+          </div>
+
+          ${
+            surveyState.greetingDispatched
+              ? renderAutomatedGreetingReceipt(personalizedGreeting)
+              : isEarlyExit
+              ? renderEarlyExitOptInBox()
+              : ""
+          }
+
+          <div class="mt-6 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+              onclick="restartSurvey()"
+              class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 text-sky-300 font-semibold text-xs sm:text-sm transition-all"
+            >
+              Submit Another Response
+            </button>
+            <button
+              onclick="switchView('analytics')"
+              class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-sky-500/20 transition-all"
+            >
+              View Live Startup Insights →
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderEarlyExitOptInBox() {
+      return `
+        <div class="glass-subcard rounded-2xl p-4 sm:p-5 max-w-lg mx-auto text-left border border-white/15">
+          <div class="text-xs font-semibold text-sky-300 mb-1">Optional: Receive Automated Thank-You Greeting</div>
+          <p class="text-[11px] text-slate-400 mb-3">
+            Want a personalized thank-you message via Email or WhatsApp? Enter either below (100% optional):
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
+            <input
+              id="early-email"
+              type="email"
+              placeholder="Email ID (optional)"
+              class="glass-input rounded-xl px-3 py-2 text-xs"
+            />
+            <input
+              id="early-whatsapp"
+              type="tel"
+              maxlength="10"
+              placeholder="WhatsApp 10-digit (optional)"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              class="glass-input rounded-xl px-3 py-2 text-xs"
+            />
+          </div>
+          <button
+            onclick="dispatchEarlyExitGreeting()"
+            class="w-full py-2.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/30 text-sky-200 font-semibold text-xs transition-all"
+          >
+            Consent &amp; Send My Thank-You Greeting
+          </button>
+        </div>
+      `;
+    }
+
+    function dispatchEarlyExitGreeting() {
+      const emailVal = (document.getElementById("early-email")?.value || "").trim();
+      const waVal = (document.getElementById("early-whatsapp")?.value || "").trim();
+
+      if (!emailVal && !waVal) {
+        showToast("Enter an Email ID or 10-digit WhatsApp number to receive a greeting.", "error");
+        return;
+      }
+      if (emailVal && !isValidEmail(emailVal)) {
+        showToast("Please enter a valid Email ID.", "error");
+        return;
+      }
+      if (waVal && waVal.length !== 10) {
+        showToast("Please enter a valid 10-digit WhatsApp number.", "error");
+        return;
+      }
+
+      surveyState.email = emailVal;
+      surveyState.whatsapp = waVal;
+      surveyState.consentEmail = Boolean(emailVal);
+      surveyState.consentWhatsApp = Boolean(waVal);
+      surveyState.greetingDispatched = true;
+
+      surveyState.submissionId = surveyState.submissionId + "-OPTIN";
+      surveyState.cloudSyncedForThisSubmission = false;
+      recordCurrentResponse(true);
+
+      renderSurvey();
+      showToast("Personalized greeting queued via consented channel!", "success");
+    }
+
+    function renderAutomatedGreetingReceipt(personalizedGreeting) {
+      const channels = [];
+      if (surveyState.consentEmail && surveyState.email) {
+        channels.push(`Email (${escapeHtml(surveyState.email)})`);
+      }
+      if (surveyState.consentWhatsApp && surveyState.whatsapp) {
+        channels.push(`WhatsApp (+91 ${escapeHtml(surveyState.whatsapp)})`);
+      }
+
+      return `
+        <div class="glass-subcard rounded-2xl p-4 sm:p-5 max-w-lg mx-auto text-left border border-emerald-400/30 bg-emerald-950/20">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              Automated Greeting Triggered
+            </span>
+            <span class="text-[11px] text-slate-400">${channels.join(" &amp; ")}</span>
+          </div>
+          <div class="rounded-xl bg-black/80 border border-white/10 p-3 text-xs text-slate-300 leading-relaxed">
+            <p class="font-semibold text-white mb-1">Preview of Dispatched Message:</p>
+            <p>Hi ${escapeHtml(surveyState.fullName.trim() || "PSIT Student")}, ${personalizedGreeting} ${REQUIRED_FINAL_MESSAGE}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function restartSurvey() {
+      surveyState = createInitialSurveyState();
+      renderSurvey();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // =========================================================================
+    // LIVE ANALYTICS & CSV EXPORT
+    // =========================================================================
+    function renderAnalytics() {
+      const total = allResponses.length;
+      const dayScholars = allResponses.filter((r) => r.accommodation === "Day Scholar");
+      const hostellers = allResponses.filter((r) => r.accommodation === "Hosteller");
+      const walkers = dayScholars.filter((r) => r.transport === "Walking");
+      const commuters = dayScholars.filter(
+        (r) => r.transport === "Bike / Scooty" || r.transport === "Auto (Public/Shared Auto)"
+      );
+      const interested = commuters.filter(
+        (r) => r.interest === "Definitely Yes" || r.interest === "Maybe, depending on price"
+      );
+
+      const validationScore =
+        commuters.length > 0 ? Math.round((interested.length / commuters.length) * 100) : 0;
+
+      const kpiContainer = document.getElementById("analytics-kpis");
+      kpiContainer.innerHTML = `
+        ${renderKpiCard("Total Responses", total.toLocaleString(), "Target: 3,000 PSIT Students", "text-white")}
+        ${renderKpiCard("Day Scholars", `${dayScholars.length} (${total ? Math.round((dayScholars.length / total) * 100) : 0}%)`, `${hostellers.length} Hostellers`, "text-sky-300")}
+        ${renderKpiCard("Target Commuters", commuters.length, `Bike/Scooty & Auto (${walkers.length} Walkers)`, "text-blue-300")}
+        ${renderKpiCard("Startup Validation", `${validationScore}%`, "Open to shared student ride", "text-emerald-300")}
+      `;
+
+      const modeCounts = {
+        "Auto (Public/Shared Auto)": dayScholars.filter((r) => r.transport === "Auto (Public/Shared Auto)").length,
+        "Bike / Scooty": dayScholars.filter((r) => r.transport === "Bike / Scooty").length,
+        "Walking": walkers.length,
+        "Hosteller (On-Campus)": hostellers.length
+      };
+
+      const problemCounts = {};
+      PAIN_POINTS.filter((p) => p !== "No major issues").forEach((p) => (problemCounts[p] = 0));
+      commuters.forEach((c) => {
+        (c.problems || []).forEach((p) => {
+          if (problemCounts[p] !== undefined) problemCounts[p]++;
+        });
+      });
+
+      const chartsContainer = document.getElementById("analytics-charts");
+      chartsContainer.innerHTML = `
+        <div class="glass-subcard rounded-2xl p-5">
+          <h3 class="text-sm font-bold text-white mb-4">Student Accommodation &amp; Travel Split</h3>
+          <div class="space-y-3.5">
+            ${Object.entries(modeCounts)
+              .map(([label, count]) => renderProgressMetric(label, count, total, "from-sky-400 to-blue-600"))
+              .join("")}
+          </div>
+        </div>
+
+        <div class="glass-subcard rounded-2xl p-5">
+          <h3 class="text-sm font-bold text-white mb-4">Top Commuting Pain Points (Bike/Auto Users)</h3>
+          <div class="space-y-3.5">
+            ${Object.entries(problemCounts)
+              .map(([label, count]) =>
+                renderProgressMetric(label, count, Math.max(commuters.length, 1), "from-cyan-400 to-indigo-500")
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderKpiCard(title, value, sub, valueColor) {
+      return `
+        <div class="glass-subcard rounded-2xl p-4">
+          <div class="text-xs text-slate-400 font-medium mb-1">${title}</div>
+          <div class="text-xl sm:text-2xl font-extrabold ${valueColor}">${value}</div>
+          <div class="text-[11px] text-slate-400 mt-1">${sub}</div>
+        </div>
+      `;
+    }
+
+    function renderProgressMetric(label, count, total, gradientClass) {
+      const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+      return `
+        <div>
+          <div class="flex items-center justify-between text-xs mb-1">
+            <span class="text-slate-200 font-medium truncate pr-2">${label}</span>
+            <span class="text-sky-300 font-semibold shrink-0">${count} (${pct}%)</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-black overflow-hidden border border-white/10">
+            <div class="h-full rounded-full bg-gradient-to-r ${gradientClass}" style="width: ${pct}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function exportResponsesCsv() {
+      const headers = ["Accommodation", "Transport", "Daily", "Home Address / Nearby", "Distance", "Expense", "Pain Points", "Interest", "Branch"];
+      const rows = allResponses.map((r) => [
+        r.accommodation || "",
+        r.transport || "N/A",
+        r.daily || "N/A",
+        `"${(r.homeAddress || "").replace(/"/g, '""')}"`,
+        r.distance || "N/A",
+        r.expense || "N/A",
+        `"${(r.problems || []).join("; ").replace(/"/g, '""')}"`,
+        r.interest || "N/A",
+        r.branch || "Unspecified"
+      ]);
+      const csvContent = [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `vorten_psit_survey_${allResponses.length}_entries.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(`Exported ${allResponses.length} responses to CSV!`, "success");
+    }
+
+    function resetAnalyticsDemo() {
+      allResponses = [...DEFAULT_RESPONSES];
+      isCloudSynced = false;
+      saveResponses();
+      updateCloudStatusBadge();
+      renderAnalytics();
+      showToast("Sample PSIT analytics data restored.", "info");
+    }
+
+    // =========================================================================
+    // CLIPBOARD HELPERS
+    // =========================================================================
+    function copyTextSafely(text, successMsg) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        showToast(successMsg, "success");
+      } catch (err) {
+        showToast("Unable to copy automatically. Please select and copy manually.", "error");
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function copySurveyLink() {
+      copyTextSafely(window.location.href, "Survey link copied to clipboard!");
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // =========================================================================
+    // INITIALIZE APP
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      updateCloudStatusBadge();
+      updateResponseBadge();
+      renderSurvey();
+      flushOfflineQueue();
+      if (getActiveScriptUrl() && getActiveScriptUrl().endsWith("/exec")) {
+        syncCloudResponses(false);
+      }
+    });
+  </script>
+</body>
+</html>
